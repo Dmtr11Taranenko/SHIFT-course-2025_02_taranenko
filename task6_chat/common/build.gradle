@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.cft.shift'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation('ch.qos.logback:logback-classic:1.5.13')
+
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+}
+
+test {
+    useJUnitPlatform()
+}

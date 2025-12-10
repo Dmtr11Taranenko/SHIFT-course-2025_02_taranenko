@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id("com.github.johnrengelman.shadow") version "7.1.0"
+}
+
+group = 'ru.cft.shift'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation("commons-cli:commons-cli:1.5.0")
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation('ch.qos.logback:logback-classic:1.5.13')
+
+    testImplementation("org.apache.groovy:groovy:4.0.21")
+    testImplementation("org.spockframework:spock-core:2.4-M1-groovy-4.0")
+    testImplementation("org.spockframework:spock-junit4:2.4-M1-groovy-4.0")
+    testImplementation("net.bytebuddy:byte-buddy:1.14.18")
+    testImplementation("org.objenesis:objenesis:3.3")
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.collect { it.getName() }.join(' '),
+                'Main-Class': 'ru.cft.shift.Main'
+        )
+    }
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+}

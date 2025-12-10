@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.cft.shift'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation('ch.qos.logback:logback-classic:1.5.13')
+
+    implementation project(':task6_chat:common')
+}
+
+tasks.register('fatJar', Jar) {
+    manifest {
+        attributes 'Main-Class': 'ru.cft.shift.task6.server.Server'
+    }
+    archiveBaseName = project.name
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+test {
+    useJUnitPlatform()
+}
